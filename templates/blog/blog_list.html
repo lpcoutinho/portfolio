@@ -24,8 +24,9 @@
         {% if posts %}
             <div class="grid gap-8 md:grid-cols-2 lg:grid-cols-3">
                 {% for post in posts %}
-                <article class="bg-white rounded-lg shadow-sm border border-gray-200 overflow-hidden hover:shadow-md transition-shadow">
-                    <div class="p-6">
+                <a href="{{ post.get_absolute_url }}" class="block">
+                    <article class="bg-white rounded-lg shadow-sm border border-gray-200 overflow-hidden hover:shadow-md transition-shadow h-full">
+                        <div class="p-6 h-full flex flex-col">
                         <!-- Post Meta -->
                         <div class="flex items-center text-sm text-gray-500 mb-3">
                             <time datetime="{{ post.created_at|date:'Y-m-d' }}">
@@ -36,14 +37,12 @@
                         </div>
                         
                         <!-- Post Title -->
-                        <h2 class="text-xl font-bold text-gray-900 mb-3 leading-tight">
-                            <a href="{{ post.get_absolute_url }}" class="hover:text-primary transition-colors">
-                                {{ post.title }}
-                            </a>
+                        <h2 class="text-xl font-bold text-gray-900 mb-3 leading-tight hover:text-primary transition-colors">
+                            {{ post.title }}
                         </h2>
                         
                         <!-- Post Excerpt -->
-                        <p class="text-gray-600 mb-4 leading-relaxed">
+                        <p class="text-gray-600 mb-4 leading-relaxed flex-grow">
                             {{ post.excerpt }}
                         </p>
                         
@@ -59,17 +58,17 @@
                         {% endif %}
                         
                         <!-- Read More Link -->
-                        <div class="pt-4 border-t border-gray-100">
-                            <a href="{{ post.get_absolute_url }}" 
-                               class="inline-flex items-center text-primary hover:text-secondary font-medium text-sm transition-colors">
+                        <div class="pt-4 border-t border-gray-100 mt-auto">
+                            <span class="inline-flex items-center text-primary hover:text-secondary font-medium text-sm transition-colors">
                                 Ler completo
                                 <svg class="ml-1 w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
                                 </svg>
-                            </a>
+                            </span>
                         </div>
-                    </div>
-                </article>
+                        </div>
+                    </article>
+                </a>
                 {% endfor %}
             </div>
             
