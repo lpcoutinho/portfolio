@@ -55,6 +55,7 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
+                'apps.core.context_processors.analytics',
             ],
         },
     },
@@ -97,3 +98,6 @@ MEDIA_ROOT = BASE_DIR / 'media'
 
 # Default primary key field type
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+# Google Analytics Configuration
+GOOGLE_ANALYTICS_GTAG_PROPERTY_ID = os.getenv('GOOGLE_ANALYTICS_GTAG_PROPERTY_ID', '')

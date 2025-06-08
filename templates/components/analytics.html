@@ -1,0 +1,155 @@
+{% load static %}
+
+<!-- Google Analytics 4 -->
+{% if GOOGLE_ANALYTICS_GTAG_PROPERTY_ID %}
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id={{ GOOGLE_ANALYTICS_GTAG_PROPERTY_ID }}"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  // Configuração básica do GA4
+  gtag('config', '{{ GOOGLE_ANALYTICS_GTAG_PROPERTY_ID }}', {
+    // Coleta dados demográficos se disponível
+    'allow_google_signals': true,
+    // Coleta dados de localização
+    'allow_ad_personalization_signals': true,
+    // Enhanced measurement automático
+    'send_page_view': true
+  });
+
+  // Event tracking personalizado
+  function trackCustomEvent(eventName, parameters = {}) {
+    gtag('event', eventName, parameters);
+  }
+
+  // Track contact button clicks
+  function trackContactClick(contactType) {
+    gtag('event', 'contact_click', {
+      'contact_type': contactType,
+      'event_category': 'engagement',
+      'event_label': contactType
+    });
+  }
+
+  // Track page scroll depth
+  let scrollDepth = 0;
+  window.addEventListener('scroll', function() {
+    const scrollTop = window.pageYOffset;
+    const docHeight = document.body.offsetHeight;
+    const winHeight = window.innerHeight;
+    const scrollPercent = scrollTop / (docHeight - winHeight);
+    
+    if (scrollPercent > 0.25 && scrollDepth < 25) {
+      scrollDepth = 25;
+      gtag('event', 'scroll_depth', {
+        'depth_percentage': 25,
+        'event_category': 'engagement'
+      });
+    } else if (scrollPercent > 0.50 && scrollDepth < 50) {
+      scrollDepth = 50;
+      gtag('event', 'scroll_depth', {
+        'depth_percentage': 50,
+        'event_category': 'engagement'
+      });
+    } else if (scrollPercent > 0.75 && scrollDepth < 75) {
+      scrollDepth = 75;
+      gtag('event', 'scroll_depth', {
+        'depth_percentage': 75,
+        'event_category': 'engagement'
+      });
+    } else if (scrollPercent > 0.90 && scrollDepth < 90) {
+      scrollDepth = 90;
+      gtag('event', 'scroll_depth', {
+        'depth_percentage': 90,
+        'event_category': 'engagement'
+      });
+    }
+  });
+
+  // Track time on page
+  let startTime = Date.now();
+  window.addEventListener('beforeunload', function() {
+    const timeOnPage = Math.round((Date.now() - startTime) / 1000);
+    gtag('event', 'time_on_page', {
+      'time_seconds': timeOnPage,
+      'event_category': 'engagement'
+    });
+  });
+
+  // Track file downloads (if any)
+  document.addEventListener('click', function(e) {
+    const target = e.target;
+    if (target.tagName === 'A') {
+      const href = target.getAttribute('href');
+      
+      // Track external links
+      if (href && (href.startsWith('http') && !href.includes(window.location.hostname))) {
+        gtag('event', 'external_link_click', {
+          'link_url': href,
+          'link_text': target.textContent,
+          'event_category': 'engagement'
+        });
+      }
+      
+      // Track file downloads
+      if (href && (href.includes('.pdf') || href.includes('.doc') || href.includes('.zip'))) {
+        gtag('event', 'file_download', {
+          'file_name': href.split('/').pop(),
+          'file_url': href,
+          'event_category': 'engagement'
+        });
+      }
+    }
+  });
+
+</script>
+{% endif %}
+
+<!-- Custom Analytics Tracking -->
+<script>
+// Função para capturar dados adicionais do usuário
+function collectUserData() {
+  const userData = {
+    timestamp: new Date().toISOString(),
+    url: window.location.href,
+    referrer: document.referrer,
+    userAgent: navigator.userAgent,
+    language: navigator.language,
+    screenResolution: screen.width + 'x' + screen.height,
+    viewportSize: window.innerWidth + 'x' + window.innerHeight,
+    timezone: Intl.DateTimeFormat().resolvedOptions().timeZone
+  };
+  
+  return userData;
+}
+
+// Enviar dados customizados para o backend Django (opcional)
+function sendCustomAnalytics(eventType, data = {}) {
+  const userData = collectUserData();
+  const payload = {
+    event_type: eventType,
+    user_data: userData,
+    custom_data: data,
+    csrfmiddlewaretoken: '{{ csrf_token }}'
+  };
+  
+  // Enviar via fetch para endpoint Django (se implementado)
+  if (window.location.hostname !== 'localhost' && window.location.hostname !== '127.0.0.1') {
+    fetch('/analytics/track/', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'X-CSRFToken': '{{ csrf_token }}'
+      },
+      body: JSON.stringify(payload)
+    }).catch(err => console.log('Analytics tracking failed:', err));
+  }
+}
+
+// Track page load
+document.addEventListener('DOMContentLoaded', function() {
+  sendCustomAnalytics('page_load');
+});
+</script>

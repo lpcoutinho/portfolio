@@ -36,6 +36,9 @@
     <!-- Favicon -->
     <link rel="icon" type="image/x-icon" href="/static/img/favicon.ico">
     
+    <!-- Analytics -->
+    {% include 'components/analytics.html' %}
+    
     {% block extra_head %}{% endblock %}
 </head>
 <body class="bg-gray-50 text-gray-900 font-sans antialiased">
@@ -66,6 +69,9 @@
                         <a href="/n8n/" class="text-gray-700 hover:text-primary px-3 py-2 rounded-md text-sm font-medium transition-colors">
                             N8N Workflows
                         </a>
+                        <a href="#contact" class="bg-primary hover:bg-secondary text-white px-4 py-2 rounded-md text-sm font-medium transition-colors">
+                            Contato
+                        </a>
                     </div>
                 </div>
                 
@@ -87,6 +93,7 @@
                 <a href="{% url 'blog:blog_list' %}" class="text-gray-700 hover:text-primary block px-3 py-2 rounded-md text-base font-medium">Build Log</a>
                 <a href="/calculator/" class="text-gray-700 hover:text-primary block px-3 py-2 rounded-md text-base font-medium">Calculadora</a>
                 <a href="/n8n/" class="text-gray-700 hover:text-primary block px-3 py-2 rounded-md text-base font-medium">N8N Workflows</a>
+                <a href="#contact" class="bg-primary hover:bg-secondary text-white block px-3 py-2 rounded-md text-base font-medium">Contato</a>
             </div>
         </div>
     </header>
@@ -103,6 +110,9 @@
         </div>
         {% endblock %}
     </main>
+
+    <!-- Seção de Contato -->
+    {% include 'components/contact_section.html' %}
 
     <!-- Footer -->
     <footer class="bg-white border-t border-gray-200 mt-auto">
