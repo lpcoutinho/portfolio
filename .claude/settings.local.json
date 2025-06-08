@@ -1,0 +1,13 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(django-admin startproject:*)",
+      "Bash(mv:*)",
+      "Bash(mkdir:*)",
+      "Bash(python:*)",
+      "WebFetch(domain:www.nagringa.dev)",
+      "Bash(chmod:*)"
+    ],
+    "deny": []
+  }
+}

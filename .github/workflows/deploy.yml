@@ -1,0 +1,41 @@
+name: Deploy to Production
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+jobs:
+  deploy:
+    runs-on: ubuntu-22.04
+    steps:
+      - name: Deploy via SSH to VPS
+        uses: appleboy/ssh-action@v0.1.5
+        with:
+          host: ${{ secrets.SERVER_IP }}
+          username: ${{ secrets.SERVER_USER }}
+          key: ${{ secrets.SERVER_SSH_KEY }}
+          port: 22
+          script: |
+            echo "📁 Entering project directory"
+            cd ~/portfolio
+            
+            echo "📥 Pulling latest code"
+            git pull origin main
+            
+            echo "🐳 Building lpcoutinho-web image"
+            docker build -t lpcoutinho-web:latest .
+            
+            echo "🚀 Updating Docker Swarm service"
+            docker service update --force --image lpcoutinho-web:latest lpcoutinho_lpcoutinho-web
+            
+            echo "⏳ Waiting for service to be ready"
+            sleep 30
+            
+            echo "🧹 Cleaning up old images"
+            docker image prune -f
+            
+            echo "✅ Deployment completed successfully"
+            
+            echo "🔍 Service status:"
+            docker service ls | grep lpcoutinho

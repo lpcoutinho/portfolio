@@ -1,0 +1,969 @@
+{% extends 'base.html' %}
+
+{% block title %}Calculadora CLT vs PJ - Meu Portfólio{% endblock %}
+
+{% block description %}Compare sua renda líquida entre CLT e PJ com nossa calculadora especializada em legislação brasileira{% endblock %}
+
+{% block content %}
+<div class="max-w-7xl mx-auto py-6 sm:px-6 lg:px-8">
+    <!-- Header -->
+    <div class="px-4 py-6 sm:px-0">
+        <div class="text-center mb-8">
+            <h1 class="text-4xl font-bold text-gray-900 mb-4">
+                Calculadora <span class="text-primary">CLT vs PJ</span>
+            </h1>
+            <p class="text-xl text-gray-600 max-w-3xl mx-auto mb-6">
+                Compare sua renda líquida entre trabalhar como CLT ou Pessoa Jurídica.
+                Cálculos baseados na legislação brasileira vigente.
+            </p>
+            
+            <!-- Botões de ação (sem compartilhar) -->
+            <div class="flex flex-wrap justify-center gap-4 mb-6">
+                <button id="clearBtn" class="bg-gray-500 hover:bg-gray-600 text-white font-medium py-2 px-4 rounded-lg transition-colors">
+                    Limpar Valores
+                </button>
+                <button id="historyBtn" class="bg-purple-500 hover:bg-purple-600 text-white font-medium py-2 px-4 rounded-lg transition-colors">
+                    Ver Histórico
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Calculadora -->
+    <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+        
+        <!-- Seção CLT -->
+        <div class="bg-white rounded-lg shadow-lg overflow-hidden">
+            <div class="bg-blue-50 px-6 py-4 border-b">
+                <h2 class="text-2xl font-bold text-blue-900 flex items-center">
+                    <svg class="w-6 h-6 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-4m-5 0H3m2 0h3M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"></path>
+                    </svg>
+                    Dados CLT
+                    <div class="ml-auto flex items-center">
+                        {{ form.clt_incluir_fgts }}
+                        <label for="{{ form.clt_incluir_fgts.id_for_label }}" class="ml-2 text-sm font-medium text-blue-900">
+                            {{ form.clt_incluir_fgts.label }}
+                        </label>
+                    </div>
+                </h2>
+            </div>
+            
+            <form id="cltForm" class="p-6 space-y-6">
+                <!-- Salário Bruto -->
+                <div class="border-b border-gray-200 pb-4">
+                    <div class="grid grid-cols-3 gap-4 items-center">
+                        <label for="{{ form.clt_salario_bruto.id_for_label }}" class="text-sm font-medium text-gray-700 col-span-2">
+                            {{ form.clt_salario_bruto.label }}
+                        </label>
+                        <div class="relative">
+                            <span class="absolute left-3 top-2 text-gray-500">R$</span>
+                            {{ form.clt_salario_bruto }}
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Benefícios -->
+                <div class="border-b border-gray-200 pb-4">
+                    <h3 class="text-lg font-semibold text-gray-800 mb-3">Benefícios</h3>
+                    <div class="space-y-3">
+                        <!-- Vale Alimentação -->
+                        <div class="grid grid-cols-3 gap-4 items-center">
+                            <label for="{{ form.clt_vale_alimentacao.id_for_label }}" class="text-sm font-medium text-gray-700 col-span-2">
+                                {{ form.clt_vale_alimentacao.label }}
+                            </label>
+                            <div class="relative">
+                                <span class="absolute left-3 top-2 text-gray-500">R$</span>
+                                {{ form.clt_vale_alimentacao }}
+                            </div>
+                        </div>
+                        
+                        <!-- Vale Transporte -->
+                        <div class="grid grid-cols-3 gap-4 items-center">
+                            <label for="{{ form.clt_vale_transporte.id_for_label }}" class="text-sm font-medium text-gray-700 col-span-2 flex items-center">
+                                {{ form.clt_vale_transporte.label }}
+                                <div class="tooltip ml-1" data-tooltip="Desconto máximo de 6% do salário bruto">
+                                    <svg class="w-4 h-4 text-gray-400 hover:text-gray-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                                    </svg>
+                                </div>
+                            </label>
+                            <div class="relative">
+                                <span class="absolute left-3 top-2 text-gray-500">R$</span>
+                                {{ form.clt_vale_transporte }}
+                            </div>
+                        </div>
+                        
+                        <!-- Plano de Saúde -->
+                        <div class="grid grid-cols-3 gap-4 items-center">
+                            <label for="{{ form.clt_plano_saude.id_for_label }}" class="text-sm font-medium text-gray-700 col-span-2">
+                                {{ form.clt_plano_saude.label }}
+                            </label>
+                            <div class="relative">
+                                <span class="absolute left-3 top-2 text-gray-500">R$</span>
+                                {{ form.clt_plano_saude }}
+                            </div>
+                        </div>
+                        
+                        <!-- PLR Anual -->
+                        <div class="grid grid-cols-3 gap-4 items-center">
+                            <label for="{{ form.clt_plr.id_for_label }}" class="text-sm font-medium text-gray-700 col-span-2 flex items-center">
+                                {{ form.clt_plr.label }}
+                                <div class="tooltip ml-1" data-tooltip="Participação nos Lucros e Resultados (valor bruto anual)">
+                                    <svg class="w-4 h-4 text-gray-400 hover:text-gray-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                                    </svg>
+                                </div>
+                            </label>
+                            <div class="relative">
+                                <span class="absolute left-3 top-2 text-gray-500">R$</span>
+                                {{ form.clt_plr }}
+                            </div>
+                        </div>
+                        
+                        <!-- Outros Benefícios -->
+                        <div class="grid grid-cols-3 gap-4 items-center">
+                            <label for="{{ form.clt_outros_beneficios.id_for_label }}" class="text-sm font-medium text-gray-700 col-span-2 flex items-center">
+                                {{ form.clt_outros_beneficios.label }}
+                                <div class="tooltip ml-1" data-tooltip="Qualquer benefício não-taxável adicional">
+                                    <svg class="w-4 h-4 text-gray-400 hover:text-gray-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                                    </svg>
+                                </div>
+                            </label>
+                            <div class="relative">
+                                <span class="absolute left-3 top-2 text-gray-500">R$</span>
+                                {{ form.clt_outros_beneficios }}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Descontos -->
+                <div class="border-b border-gray-200 pb-4">
+                    <h3 class="text-lg font-semibold text-gray-800 mb-3">Descontos</h3>
+                    <div class="space-y-3">
+                        <!-- Pensão Alimentícia -->
+                        <div class="grid grid-cols-3 gap-4 items-center">
+                            <label for="{{ form.clt_pensao_alimenticia.id_for_label }}" class="text-sm font-medium text-gray-700 col-span-2 flex items-center">
+                                {{ form.clt_pensao_alimenticia.label }}
+                                <div class="tooltip ml-1" data-tooltip="Valor mensal da pensão alimentícia (dedutível do imposto de renda)">
+                                    <svg class="w-4 h-4 text-gray-400 hover:text-gray-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                                    </svg>
+                                </div>
+                            </label>
+                            <div class="relative">
+                                <span class="absolute left-3 top-2 text-gray-500">R$</span>
+                                {{ form.clt_pensao_alimenticia }}
+                            </div>
+                        </div>
+                        
+                        <!-- Outros Descontos -->
+                        <div class="grid grid-cols-3 gap-4 items-center">
+                            <label for="{{ form.clt_outros_descontos.id_for_label }}" class="text-sm font-medium text-gray-700 col-span-2 flex items-center">
+                                {{ form.clt_outros_descontos.label }}
+                                <div class="tooltip ml-1" data-tooltip="Outros descontos mensais em folha (ex: empréstimos, convênios, coparticipação plano de saúde)">
+                                    <svg class="w-4 h-4 text-gray-400 hover:text-gray-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                                    </svg>
+                                </div>
+                            </label>
+                            <div class="relative">
+                                <span class="absolute left-3 top-2 text-gray-500">R$</span>
+                                {{ form.clt_outros_descontos }}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Outros Dados -->
+                <div>
+                    <h3 class="text-lg font-semibold text-gray-800 mb-3">Outros Dados</h3>
+                    <div class="space-y-3">
+                        <!-- Dependentes -->
+                        <div class="grid grid-cols-3 gap-4 items-center">
+                            <label for="{{ form.clt_dependentes.id_for_label }}" class="text-sm font-medium text-gray-700 col-span-2 flex items-center">
+                                {{ form.clt_dependentes.label }}
+                                <div class="tooltip ml-1" data-tooltip="Cada dependente reduz R$ 189,59 do imposto de renda">
+                                    <svg class="w-4 h-4 text-gray-400 hover:text-gray-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                                    </svg>
+                                </div>
+                            </label>
+                            <div>
+                                {{ form.clt_dependentes }}
+                            </div>
+                        </div>
+                        
+                        <!-- Anos na Empresa -->
+                        <div class="grid grid-cols-3 gap-4 items-center">
+                            <label for="{{ form.clt_anos_empresa.id_for_label }}" class="text-sm font-medium text-gray-700 col-span-2 flex items-center">
+                                {{ form.clt_anos_empresa.label }}
+                                <div class="tooltip ml-1" data-tooltip="Usado para calcular a multa rescisória (FGTS + 40%)">
+                                    <svg class="w-4 h-4 text-gray-400 hover:text-gray-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                                    </svg>
+                                </div>
+                            </label>
+                            <div>
+                                {{ form.clt_anos_empresa }}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </form>
+
+            <!-- Resultados CLT -->
+            <div id="cltResults" class="bg-blue-50 border-t p-6">
+                <h3 class="text-lg font-semibold text-blue-900 mb-3">Resultados</h3>
+                <div class="space-y-2">
+                    <div class="flex justify-between">
+                        <span class="text-sm text-gray-700 flex items-center">
+                            Salário Líquido Mensal
+                            <div class="tooltip ml-1" data-tooltip="Esse é o valor que vai entrar na sua conta, todo mês, depois de todos os descontos, sem contar com os benefícios.">
+                                <svg class="w-4 h-4 text-gray-400 hover:text-gray-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                                </svg>
+                            </div>
+                        </span>
+                        <span id="clt-liquido-mensal" class="font-semibold text-blue-900">R$ 0,00</span>
+                    </div>
+                    <div class="flex justify-between">
+                        <span class="text-sm text-gray-700">Salário Líquido + Benefícios Acumulados</span>
+                        <span id="clt-total-beneficios" class="font-semibold text-blue-900">R$ 0,00</span>
+                    </div>
+                </div>
+                
+                <!-- Detalhamento CLT -->
+                <div class="mt-4">
+                    <button id="cltDetailsBtn" class="text-blue-600 hover:text-blue-800 text-sm font-medium">
+                        Ver cálculo detalhado
+                    </button>
+                    <div id="cltDetails" class="hidden mt-3 space-y-2 text-sm">
+                        <div class="border-b border-blue-200 pb-2 mb-2">
+                            <div class="font-semibold text-blue-900">Receitas</div>
+                        </div>
+                        <div class="flex justify-between">
+                            <span>Salário Bruto Mensal</span>
+                            <span id="clt-bruto-detail" class="text-green-600">+R$ 0,00</span>
+                        </div>
+                        <div class="flex justify-between">
+                            <span>Vale-Transporte</span>
+                            <span id="clt-vt-detail" class="text-green-600">+R$ 0,00</span>
+                        </div>
+                        <div class="flex justify-between">
+                            <span>Vale Refeição/Alimentação</span>
+                            <span id="clt-va-detail" class="text-green-600">+R$ 0,00</span>
+                        </div>
+                        <div class="flex justify-between">
+                            <span>Plano de Saúde</span>
+                            <span id="clt-ps-detail" class="text-green-600">+R$ 0,00</span>
+                        </div>
+                        <div class="flex justify-between">
+                            <span>13º Salário (proporcional)</span>
+                            <span id="clt-13o-detail" class="text-green-600">+R$ 0,00</span>
+                        </div>
+                        <div class="flex justify-between">
+                            <span>Férias (proporcional)</span>
+                            <span id="clt-ferias-detail" class="text-green-600">+R$ 0,00</span>
+                        </div>
+                        <div class="flex justify-between">
+                            <span>FGTS Mensal</span>
+                            <span id="clt-fgts-detail" class="text-green-600">+R$ 0,00</span>
+                        </div>
+                        
+                        <div class="border-b border-blue-200 pb-2 mb-2 mt-3">
+                            <div class="font-semibold text-blue-900">Deduções</div>
+                        </div>
+                        <div class="flex justify-between">
+                            <span>INSS</span>
+                            <span id="clt-inss-detail" class="text-red-600">-R$ 0,00</span>
+                        </div>
+                        <div class="flex justify-between">
+                            <span>IRPF</span>
+                            <span id="clt-irpf-detail" class="text-red-600">-R$ 0,00</span>
+                        </div>
+                        <div class="flex justify-between">
+                            <span>Desconto VT (6%)</span>
+                            <span id="clt-desconto-vt-detail" class="text-red-600">-R$ 0,00</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Seção PJ -->
+        <div class="bg-white rounded-lg shadow-lg overflow-hidden">
+            <div class="bg-green-50 px-6 py-4 border-b">
+                <h2 class="text-2xl font-bold text-green-900 flex items-center">
+                    <svg class="w-6 h-6 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path>
+                    </svg>
+                    Dados PJ
+                </h2>
+            </div>
+            
+            <form id="pjForm" class="p-6 space-y-6">
+                <!-- Salário Bruto -->
+                <div class="border-b border-gray-200 pb-4">
+                    <div class="grid grid-cols-3 gap-4 items-center">
+                        <label for="{{ form.pj_salario_bruto.id_for_label }}" class="text-sm font-medium text-gray-700 col-span-2">
+                            {{ form.pj_salario_bruto.label }}
+                        </label>
+                        <div class="relative">
+                            <span class="absolute left-3 top-2 text-gray-500">R$</span>
+                            {{ form.pj_salario_bruto }}
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Despesas -->
+                <div class="border-b border-gray-200 pb-4">
+                    <h3 class="text-lg font-semibold text-gray-800 mb-3">Despesas</h3>
+                    <div class="space-y-3">
+                        <!-- Honorários Contador -->
+                        <div class="grid grid-cols-3 gap-4 items-center">
+                            <label for="{{ form.pj_contador.id_for_label }}" class="text-sm font-medium text-gray-700 col-span-2 flex items-center">
+                                {{ form.pj_contador.label }}
+                                <div class="tooltip ml-1" data-tooltip="Baseado no valor da mensalidade da Contabilizei.">
+                                    <svg class="w-4 h-4 text-gray-400 hover:text-gray-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                                    </svg>
+                                </div>
+                            </label>
+                            <div class="relative">
+                                <span class="absolute left-3 top-2 text-gray-500">R$</span>
+                                {{ form.pj_contador }}
+                            </div>
+                        </div>
+                        
+                        <!-- Contribuição INSS -->
+                        <div class="grid grid-cols-3 gap-4 items-center">
+                            <label for="{{ form.pj_inss.id_for_label }}" class="text-sm font-medium text-gray-700 col-span-2 flex items-center">
+                                {{ form.pj_inss.label }}
+                                <div class="tooltip ml-1" data-tooltip="O valor padrão é 11% do salário mínimo.">
+                                    <svg class="w-4 h-4 text-gray-400 hover:text-gray-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                                    </svg>
+                                </div>
+                            </label>
+                            <div class="relative">
+                                <span class="absolute left-3 top-2 text-gray-500">R$</span>
+                                {{ form.pj_inss }}
+                            </div>
+                        </div>
+                        
+                        <!-- Alíquota de Impostos -->
+                        <div class="grid grid-cols-3 gap-4 items-center">
+                            <label for="{{ form.pj_taxa_imposto.id_for_label }}" class="text-sm font-medium text-gray-700 col-span-2 flex items-center">
+                                {{ form.pj_taxa_imposto.label }}
+                                <div class="tooltip ml-1" data-tooltip="O valor padrão é 11% do salário mínimo.">
+                                    <svg class="w-4 h-4 text-gray-400 hover:text-gray-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                                    </svg>
+                                </div>
+                            </label>
+                            <div class="relative">
+                                <span class="absolute left-3 top-2 text-gray-500">%</span>
+                                {{ form.pj_taxa_imposto }}
+                            </div>
+                        </div>
+                        
+                        <!-- Outras Despesas -->
+                        <div class="grid grid-cols-3 gap-4 items-center">
+                            <label for="{{ form.pj_outras_despesas.id_for_label }}" class="text-sm font-medium text-gray-700 col-span-2">
+                                {{ form.pj_outras_despesas.label }}
+                            </label>
+                            <div class="relative">
+                                <span class="absolute left-3 top-2 text-gray-500">R$</span>
+                                {{ form.pj_outras_despesas }}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Benefícios -->
+                <div>
+                    <h3 class="text-lg font-semibold text-gray-800 mb-3">Benefícios</h3>
+                    <div class="space-y-3">
+                        <!-- Benefícios Tributáveis -->
+                        <div class="grid grid-cols-3 gap-4 items-center">
+                            <label for="{{ form.pj_beneficios_tributaveis.id_for_label }}" class="text-sm font-medium text-gray-700 col-span-2 flex items-center">
+                                {{ form.pj_beneficios_tributaveis.label }}
+                                <div class="tooltip ml-1" data-tooltip="Benefícios que são somados ao salário bruto para fins de tributação">
+                                    <svg class="w-4 h-4 text-gray-400 hover:text-gray-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                                    </svg>
+                                </div>
+                            </label>
+                            <div class="relative">
+                                <span class="absolute left-3 top-2 text-gray-500">R$</span>
+                                {{ form.pj_beneficios_tributaveis }}
+                            </div>
+                        </div>
+                        
+                        <!-- Benefícios Não-Tributáveis -->
+                        <div class="grid grid-cols-3 gap-4 items-center">
+                            <label for="{{ form.pj_beneficios_nao_tributaveis.id_for_label }}" class="text-sm font-medium text-gray-700 col-span-2 flex items-center">
+                                {{ form.pj_beneficios_nao_tributaveis.label }}
+                                <div class="tooltip ml-1" data-tooltip="Benefícios que você recebe mas não são tributados">
+                                    <svg class="w-4 h-4 text-gray-400 hover:text-gray-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                                    </svg>
+                                </div>
+                            </label>
+                            <div class="relative">
+                                <span class="absolute left-3 top-2 text-gray-500">R$</span>
+                                {{ form.pj_beneficios_nao_tributaveis }}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </form>
+
+            <!-- Resultados PJ -->
+            <div id="pjResults" class="bg-green-50 border-t p-6">
+                <h3 class="text-lg font-semibold text-green-900 mb-3">Resultados</h3>
+                <div class="space-y-2">
+                    <div class="flex justify-between">
+                        <span class="text-sm text-gray-700">Total Líquido</span>
+                        <span id="pj-liquido-mensal" class="font-semibold text-green-900">R$ 0,00</span>
+                    </div>
+                </div>
+                
+                <!-- Detalhamento PJ -->
+                <div class="mt-4">
+                    <button id="pjDetailsBtn" class="text-green-600 hover:text-green-800 text-sm font-medium">
+                        Ver cálculo detalhado
+                    </button>
+                    <div id="pjDetails" class="hidden mt-3 space-y-2 text-sm">
+                        <div class="flex justify-between">
+                            <span>Faturamento Bruto</span>
+                            <span id="pj-bruto-detail" class="text-green-600">+R$ 0,00</span>
+                        </div>
+                        
+                        <div class="border-b border-green-200 pb-2 mb-2 mt-3">
+                            <div class="font-semibold text-green-900">Deduções</div>
+                        </div>
+                        <div class="flex justify-between">
+                            <span>Impostos</span>
+                            <span id="pj-impostos-detail" class="text-red-600">-R$ 0,00</span>
+                        </div>
+                        <div class="flex justify-between">
+                            <span>Honorários Contador</span>
+                            <span id="pj-contador-detail" class="text-red-600">-R$ 0,00</span>
+                        </div>
+                        <div class="flex justify-between">
+                            <span>INSS Pró-Labore</span>
+                            <span id="pj-inss-detail" class="text-red-600">-R$ 0,00</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Comparação Final -->
+    <div id="comparison" class="mt-8 bg-white rounded-lg shadow-lg p-6">
+        <h2 class="text-2xl font-bold text-gray-900 mb-6 text-center">Comparação Final</h2>
+        
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+            <!-- CLT Resumo -->
+            <div class="bg-blue-50 rounded-lg p-4">
+                <h3 class="text-lg font-bold text-blue-900 mb-2">CLT</h3>
+                <div class="text-2xl font-bold text-blue-600" id="comparison-clt">R$ 0,00</div>
+                <div class="text-sm text-gray-600">por mês</div>
+            </div>
+            
+            <!-- Diferença -->
+            <div class="bg-yellow-50 rounded-lg p-4 text-center">
+                <h3 class="text-lg font-bold text-yellow-900 mb-2">Diferença</h3>
+                <div class="text-2xl font-bold" id="comparison-diff">R$ 0,00</div>
+                <div class="text-sm" id="comparison-percent">0%</div>
+                <div class="mt-2">
+                    <span id="comparison-winner" class="inline-block px-3 py-1 rounded-full text-sm font-medium">-</span>
+                </div>
+            </div>
+            
+            <!-- PJ Resumo -->
+            <div class="bg-green-50 rounded-lg p-4">
+                <h3 class="text-lg font-bold text-green-900 mb-2">PJ</h3>
+                <div class="text-2xl font-bold text-green-600" id="comparison-pj">R$ 0,00</div>
+                <div class="text-sm text-gray-600">por mês</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Botão Compartilhar -->
+    <div class="mt-6 text-center">
+        <button id="shareBtn" class="bg-blue-500 hover:bg-blue-600 text-white font-medium py-2 px-4 rounded-lg transition-colors">
+            Compartilhar Resultado
+        </button>
+    </div>
+
+    <!-- Histórico Modal -->
+    <div id="historyModal" class="fixed inset-0 bg-gray-600 bg-opacity-50 hidden z-50">
+        <div class="flex items-center justify-center min-h-screen p-4">
+            <div class="bg-white rounded-lg max-w-2xl w-full max-h-96 overflow-y-auto">
+                <div class="p-6">
+                    <div class="flex justify-between items-center mb-4">
+                        <h3 class="text-lg font-bold text-gray-900">Histórico de Comparações</h3>
+                        <button id="closeHistory" class="text-gray-400 hover:text-gray-600">
+                            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+                            </svg>
+                        </button>
+                    </div>
+                    <div id="historyList" class="space-y-3">
+                        <!-- Histórico será carregado aqui -->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Disclaimer -->
+    <div class="mt-8 bg-yellow-50 border border-yellow-200 rounded-lg p-6">
+        <div class="flex">
+            <div class="flex-shrink-0">
+                <svg class="h-5 w-5 text-yellow-400" viewBox="0 0 20 20" fill="currentColor">
+                    <path fill-rule="evenodd" d="M8.257 3.099c.765-1.36 2.722-1.36 3.486 0l5.58 9.92c.75 1.334-.213 2.98-1.742 2.98H4.42c-1.53 0-2.493-1.646-1.743-2.98l5.58-9.92zM11 13a1 1 0 11-2 0 1 1 0 012 0zm-1-8a1 1 0 00-1 1v3a1 1 0 002 0V6a1 1 0 00-1-1z" clip-rule="evenodd" />
+                </svg>
+            </div>
+            <div class="ml-3">
+                <h3 class="text-sm font-medium text-yellow-800">Importante</h3>
+                <div class="mt-2 text-sm text-yellow-700">
+                    <p>Esta calculadora é uma ferramenta de demonstração e os valores são aproximados. 
+                    Para decisões financeiras importantes, consulte sempre um contador ou especialista em tributação.
+                    As alíquotas e faixas podem variar conforme a legislação vigente.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<style>
+/* Tooltip styles */
+.tooltip {
+    position: relative;
+    display: inline-block;
+    cursor: pointer;
+}
+
+.tooltip:hover::after {
+    content: attr(data-tooltip);
+    position: absolute;
+    bottom: 125%;
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: rgba(0, 0, 0, 0.8);
+    color: white;
+    padding: 8px 12px;
+    border-radius: 6px;
+    font-size: 12px;
+    white-space: nowrap;
+    z-index: 1000;
+    max-width: 200px;
+    white-space: normal;
+    width: max-content;
+}
+
+.tooltip:hover::before {
+    content: "";
+    position: absolute;
+    bottom: 120%;
+    left: 50%;
+    transform: translateX(-50%);
+    border: 5px solid transparent;
+    border-top: 5px solid rgba(0, 0, 0, 0.8);
+    z-index: 1000;
+}
+
+/* Input com prefixo R$ */
+input[type="number"] {
+    padding-left: 2.5rem !important;
+}
+
+input[type="number"]:focus + span,
+input[type="number"]:not(:placeholder-shown) + span {
+    color: #374151;
+}
+</style>
+
+<script>
+// Valores padrão (apenas campos com valores pré-definidos)
+const defaultValues = {
+    // CLT defaults
+    clt_incluir_fgts: true,
+    
+    // PJ defaults (apenas os que têm valor padrão)
+    pj_contador: 189,
+    pj_inss: 166.98,
+    pj_taxa_imposto: 10
+};
+
+// Função para formatar moeda
+function formatCurrency(value) {
+    return new Intl.NumberFormat('pt-BR', {
+        style: 'currency',
+        currency: 'BRL'
+    }).format(value);
+}
+
+// Função para sincronizar salários
+function syncSalaries() {
+    const cltSalary = document.getElementById('id_clt_salario_bruto');
+    const pjSalary = document.getElementById('id_pj_salario_bruto');
+    let shouldSync = false;
+    let activeField = null;
+    
+    if (cltSalary && pjSalary) {
+        // Quando CLT recebe foco, verificar se deve sincronizar
+        cltSalary.addEventListener('focus', function() {
+            if (!pjSalary.value || pjSalary.value === '0' || pjSalary.value === '') {
+                shouldSync = true;
+                activeField = 'clt';
+            }
+        });
+        
+        // Quando PJ recebe foco, verificar se deve sincronizar
+        pjSalary.addEventListener('focus', function() {
+            if (!cltSalary.value || cltSalary.value === '0' || cltSalary.value === '') {
+                shouldSync = true;
+                activeField = 'pj';
+            }
+        });
+        
+        // Quando CLT perde foco, parar sincronização
+        cltSalary.addEventListener('blur', function() {
+            if (activeField === 'clt') {
+                shouldSync = false;
+                activeField = null;
+            }
+        });
+        
+        // Quando PJ perde foco, parar sincronização
+        pjSalary.addEventListener('blur', function() {
+            if (activeField === 'pj') {
+                shouldSync = false;
+                activeField = null;
+            }
+        });
+        
+        // Sincronizar CLT -> PJ apenas quando em foco e deve sincronizar
+        cltSalary.addEventListener('input', function() {
+            if (shouldSync && activeField === 'clt') {
+                pjSalary.value = this.value;
+            }
+            calculateComparison();
+        });
+        
+        // Sincronizar PJ -> CLT apenas quando em foco e deve sincronizar
+        pjSalary.addEventListener('input', function() {
+            if (shouldSync && activeField === 'pj') {
+                cltSalary.value = this.value;
+            }
+            calculateComparison();
+        });
+    }
+}
+
+// Função para calcular comparação
+async function calculateComparison() {
+    const formData = {};
+    
+    // Coletar dados de ambos os formulários
+    const forms = [document.getElementById('cltForm'), document.getElementById('pjForm')];
+    forms.forEach(form => {
+        if (form) {
+            const inputs = form.querySelectorAll('input');
+            inputs.forEach(input => {
+                let value;
+                if (input.type === 'checkbox') {
+                    value = input.checked;
+                } else {
+                    value = parseFloat(input.value) || 0;
+                }
+                formData[input.name] = value;
+            });
+        }
+    });
+    
+    try {
+        const response = await fetch('{% url "calculator:calculate_ajax" %}', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(formData)
+        });
+        
+        const data = await response.json();
+        
+        if (data.success) {
+            updateResults(data);
+            updateURL(formData);
+            saveToHistory(formData, data);
+        } else {
+            console.error('Erro no cálculo:', data.error);
+        }
+    } catch (error) {
+        console.error('Erro:', error);
+    }
+}
+
+// Função para atualizar resultados na interface
+function updateResults(data) {
+    // Resultados CLT
+    document.getElementById('clt-liquido-mensal').textContent = formatCurrency(data.clt.liquido_mensal);
+    document.getElementById('clt-total-beneficios').textContent = formatCurrency(data.clt.liquido_mensal + data.clt.beneficios_mensais);
+    
+    // Detalhamento CLT
+    document.getElementById('clt-bruto-detail').textContent = '+' + formatCurrency(data.clt.bruto);
+    document.getElementById('clt-vt-detail').textContent = '+' + formatCurrency(data.clt.vale_transporte || 0);
+    document.getElementById('clt-va-detail').textContent = '+' + formatCurrency(data.clt.vale_alimentacao || 0);
+    document.getElementById('clt-ps-detail').textContent = '+' + formatCurrency(data.clt.plano_saude || 0);
+    document.getElementById('clt-13o-detail').textContent = '+' + formatCurrency(data.clt.decimo_terceiro || 0);
+    document.getElementById('clt-ferias-detail').textContent = '+' + formatCurrency(data.clt.ferias || 0);
+    document.getElementById('clt-fgts-detail').textContent = '+' + formatCurrency(data.clt.fgts || 0);
+    document.getElementById('clt-inss-detail').textContent = '-' + formatCurrency(data.clt.inss);
+    document.getElementById('clt-irpf-detail').textContent = '-' + formatCurrency(data.clt.irrf);
+    document.getElementById('clt-desconto-vt-detail').textContent = '-' + formatCurrency(data.clt.desconto_vt || 0);
+    
+    // Resultados PJ
+    document.getElementById('pj-liquido-mensal').textContent = formatCurrency(data.pj.liquido_mensal);
+    
+    // Detalhamento PJ
+    document.getElementById('pj-bruto-detail').textContent = '+' + formatCurrency(data.pj.bruto);
+    document.getElementById('pj-impostos-detail').textContent = '-' + formatCurrency(data.pj.impostos);
+    document.getElementById('pj-contador-detail').textContent = '-' + formatCurrency(data.pj.contador);
+    document.getElementById('pj-inss-detail').textContent = '-' + formatCurrency(data.pj.inss);
+    
+    // Comparação
+    document.getElementById('comparison-clt').textContent = formatCurrency(data.clt.liquido_mensal);
+    document.getElementById('comparison-pj').textContent = formatCurrency(data.pj.liquido_mensal);
+    
+    const diferenca = data.comparacao.diferenca_mensal;
+    document.getElementById('comparison-diff').textContent = formatCurrency(Math.abs(diferenca));
+    document.getElementById('comparison-percent').textContent = Math.abs(data.comparacao.percentual_diferenca).toFixed(1) + '%';
+    
+    const winner = document.getElementById('comparison-winner');
+    if (data.comparacao.melhor_opcao === 'PJ') {
+        winner.textContent = 'PJ é melhor';
+        winner.className = 'inline-block px-3 py-1 rounded-full text-sm font-medium bg-green-200 text-green-800';
+        document.getElementById('comparison-diff').className = 'text-2xl font-bold text-green-600';
+    } else {
+        winner.textContent = 'CLT é melhor';
+        winner.className = 'inline-block px-3 py-1 rounded-full text-sm font-medium bg-blue-200 text-blue-800';
+        document.getElementById('comparison-diff').className = 'text-2xl font-bold text-blue-600';
+    }
+}
+
+// Função para atualizar URL com parâmetros
+function updateURL(formData) {
+    const params = new URLSearchParams();
+    Object.keys(formData).forEach(key => {
+        if (formData[key] !== 0 && formData[key] !== false) {
+            params.set(key, formData[key]);
+        }
+    });
+    
+    const newURL = window.location.pathname + '?' + params.toString();
+    window.history.replaceState({}, '', newURL);
+}
+
+// Função para carregar parâmetros da URL
+function loadFromURL() {
+    const params = new URLSearchParams(window.location.search);
+    params.forEach((value, key) => {
+        const element = document.getElementById(`id_${key}`);
+        if (element) {
+            if (element.type === 'checkbox') {
+                element.checked = value === 'true';
+            } else {
+                element.value = value;
+            }
+        }
+    });
+}
+
+// Função para limpar valores
+function clearValues() {
+    // Primeiro limpar todos os campos
+    document.querySelectorAll('input').forEach(input => {
+        if (input.type === 'checkbox') {
+            input.checked = false;
+        } else {
+            input.value = '';
+        }
+    });
+    
+    // Depois aplicar apenas os valores padrão definidos
+    Object.keys(defaultValues).forEach(key => {
+        const element = document.getElementById(`id_${key}`);
+        if (element) {
+            if (element.type === 'checkbox') {
+                element.checked = defaultValues[key];
+            } else {
+                element.value = defaultValues[key];
+            }
+        }
+    });
+    calculateComparison();
+}
+
+// Função para compartilhar resultado
+function shareResult() {
+    const url = window.location.href;
+    if (navigator.share) {
+        navigator.share({
+            title: 'Calculadora CLT vs PJ',
+            text: 'Confira este resultado da calculadora CLT vs PJ',
+            url: url
+        });
+    } else {
+        navigator.clipboard.writeText(url).then(() => {
+            alert('Link copiado para a área de transferência!');
+        });
+    }
+}
+
+// Função para salvar no histórico
+function saveToHistory(formData, results) {
+    let history = JSON.parse(localStorage.getItem('calculatorHistory') || '[]');
+    
+    const entry = {
+        timestamp: new Date().toISOString(),
+        formData: formData,
+        results: results
+    };
+    
+    history.unshift(entry);
+    if (history.length > 10) history = history.slice(0, 10); // Manter apenas 10 entradas
+    
+    localStorage.setItem('calculatorHistory', JSON.stringify(history));
+}
+
+// Função para carregar histórico
+function loadHistory() {
+    const history = JSON.parse(localStorage.getItem('calculatorHistory') || '[]');
+    const historyList = document.getElementById('historyList');
+    
+    if (history.length === 0) {
+        historyList.innerHTML = '<p class="text-gray-500 text-center">Nenhuma comparação salva ainda.</p>';
+        return;
+    }
+    
+    historyList.innerHTML = history.map((entry, index) => `
+        <div class="border border-gray-200 rounded-lg p-4 cursor-pointer hover:bg-gray-50" onclick="loadHistoryEntry(${index})">
+            <div class="flex justify-between items-center">
+                <div>
+                    <div class="font-medium text-gray-900">
+                        CLT: ${formatCurrency(entry.results.clt.liquido_mensal)} 
+                        vs 
+                        PJ: ${formatCurrency(entry.results.pj.liquido_mensal)}
+                    </div>
+                    <div class="text-sm text-gray-500">
+                        ${new Date(entry.timestamp).toLocaleString('pt-BR')}
+                    </div>
+                </div>
+                <div class="text-sm font-medium ${entry.results.comparacao.melhor_opcao === 'PJ' ? 'text-green-600' : 'text-blue-600'}">
+                    ${entry.results.comparacao.melhor_opcao} é melhor
+                </div>
+            </div>
+        </div>
+    `).join('');
+}
+
+// Função para carregar entrada do histórico
+function loadHistoryEntry(index) {
+    const history = JSON.parse(localStorage.getItem('calculatorHistory') || '[]');
+    const entry = history[index];
+    
+    if (entry) {
+        Object.keys(entry.formData).forEach(key => {
+            const element = document.getElementById(`id_${key}`);
+            if (element) {
+                if (element.type === 'checkbox') {
+                    element.checked = entry.formData[key];
+                } else {
+                    element.value = entry.formData[key];
+                }
+            }
+        });
+        
+        document.getElementById('historyModal').classList.add('hidden');
+        calculateComparison();
+    }
+}
+
+// Event listeners
+document.addEventListener('DOMContentLoaded', function() {
+    // Carregar apenas valores padrão definidos (deixar outros campos vazios)
+    Object.keys(defaultValues).forEach(key => {
+        const element = document.getElementById(`id_${key}`);
+        if (element) {
+            if (element.type === 'checkbox') {
+                element.checked = defaultValues[key];
+            } else {
+                element.value = defaultValues[key];
+            }
+        }
+    });
+    
+    // Carregar parâmetros da URL
+    loadFromURL();
+    
+    // Sincronizar salários
+    syncSalaries();
+    
+    // Calcular automaticamente quando os valores mudarem
+    document.querySelectorAll('input').forEach(input => {
+        input.addEventListener('input', () => {
+            clearTimeout(window.calculationTimeout);
+            window.calculationTimeout = setTimeout(calculateComparison, 300);
+        });
+    });
+    
+    // Botões de ação
+    document.getElementById('clearBtn').addEventListener('click', clearValues);
+    document.getElementById('shareBtn').addEventListener('click', shareResult);
+    document.getElementById('historyBtn').addEventListener('click', () => {
+        loadHistory();
+        document.getElementById('historyModal').classList.remove('hidden');
+    });
+    
+    // Modal do histórico
+    document.getElementById('closeHistory').addEventListener('click', () => {
+        document.getElementById('historyModal').classList.add('hidden');
+    });
+    
+    // Botões de detalhamento
+    document.getElementById('cltDetailsBtn').addEventListener('click', function() {
+        const details = document.getElementById('cltDetails');
+        if (details.classList.contains('hidden')) {
+            details.classList.remove('hidden');
+            this.textContent = 'Ocultar cálculo detalhado';
+        } else {
+            details.classList.add('hidden');
+            this.textContent = 'Ver cálculo detalhado';
+        }
+    });
+    
+    document.getElementById('pjDetailsBtn').addEventListener('click', function() {
+        const details = document.getElementById('pjDetails');
+        if (details.classList.contains('hidden')) {
+            details.classList.remove('hidden');
+            this.textContent = 'Ocultar cálculo detalhado';
+        } else {
+            details.classList.add('hidden');
+            this.textContent = 'Ver cálculo detalhado';
+        }
+    });
+    
+    // Calcular inicialmente
+    calculateComparison();
+});
+</script>
+{% endblock %}

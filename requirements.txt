@@ -1,0 +1,19 @@
+# Core Framework
+Django==5.2.2
+
+# Django Dependencies
+asgiref==3.8.1
+sqlparse==0.5.3
+typing_extensions==4.14.0
+
+# Content & Rendering
+markdown==3.8
+
+# Development Dependencies (adicione conforme necessário)
+# django-extensions==3.2.3  # Para shell_plus e ferramentas úteis
+# django-debug-toolbar==4.2.0  # Para debug em desenvolvimento
+
+# Production Dependencies
+gunicorn==21.2.0  # WSGI HTTP Server para produção
+whitenoise==6.5.0  # Para servir arquivos estáticos em produção
+psycopg2-binary==2.9.9  # PostgreSQL adapter (opcional)
