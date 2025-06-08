@@ -23,6 +23,12 @@ jobs:
             echo "📥 Pulling latest code"
             git pull origin main
             
+            echo "📦 Creating Docker volumes if they don't exist"
+            docker volume create lpcoutinho-data || true
+            docker volume create lpcoutinho-static || true
+            docker volume create lpcoutinho-media || true
+            docker volume create lpcoutinho-logs || true
+            
             echo "🐳 Building lpcoutinho-web image"
             docker build -t lpcoutinho-web:latest .
             

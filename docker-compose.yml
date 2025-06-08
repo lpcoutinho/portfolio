@@ -3,24 +3,35 @@ version: "3.8"
 services:
   lpcoutinho-web:
     image: lpcoutinho-web:latest  
-    command: sh -c "python manage.py migrate --settings=config.settings.prod && python manage.py collectstatic --noinput --settings=config.settings.prod && gunicorn config.wsgi:application --bind 0.0.0.0:8000 --workers 4 --timeout 120"
     volumes:
-      - /root/lpcoutinho:/app    
+      - lpcoutinho-data:/app/data
       - lpcoutinho-static:/app/staticfiles
       - lpcoutinho-media:/app/media
+      - lpcoutinho-logs:/app/logs
     environment:
       - DJANGO_SETTINGS_MODULE=config.settings.prod
       - SECRET_KEY=your-secret-key-here-change-me
+      - PYTHONUNBUFFERED=1
     ports:
       - "8000:8000"
     networks:
       - MeteNet
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8000/"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 60s
     deploy:
       mode: replicated
       replicas: 1
       placement:
         constraints:
           - node.role == manager
+      restart_policy:
+        condition: on-failure
+        delay: 5s
+        max_attempts: 3
       labels:
         - traefik.enable=true
         - traefik.http.routers.lpcoutinho.rule=Host(`lpcoutinho.top`) || Host(`www.lpcoutinho.top`)
@@ -41,9 +52,15 @@ networks:
     name: MeteNet
 
 volumes:
+  lpcoutinho-data:
+    external: true
+    name: lpcoutinho-data
   lpcoutinho-static:
     external: true
     name: lpcoutinho-static
   lpcoutinho-media:
     external: true
     name: lpcoutinho-media
+  lpcoutinho-logs:
+    external: true
+    name: lpcoutinho-logs

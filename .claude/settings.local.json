@@ -6,7 +6,8 @@
       "Bash(mkdir:*)",
       "Bash(python:*)",
       "WebFetch(domain:www.nagringa.dev)",
-      "Bash(chmod:*)"
+      "Bash(chmod:*)",
+      "Bash(rm:*)"
     ],
     "deny": []
   }

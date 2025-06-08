@@ -7,15 +7,17 @@
 ```bash
 # Clone do repositório
 cd ~
-git clone https://github.com/seu-usuario/lpcoutinho.git
-cd lpcoutinho
+git clone https://github.com/seu-usuario/portfolio.git
+cd portfolio
+
+# Criar volumes no Docker Swarm
+docker volume create lpcoutinho-data
+docker volume create lpcoutinho-static
+docker volume create lpcoutinho-media
+docker volume create lpcoutinho-logs
 
 # Primeira build da imagem
 docker build -t lpcoutinho-web:latest .
-
-# Criar volumes no Docker Swarm
-docker volume create lpcoutinho-static
-docker volume create lpcoutinho-media
 ```
 
 ### 2. Configuração no Portainer
