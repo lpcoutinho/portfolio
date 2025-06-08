@@ -20,18 +20,18 @@ RUN pip install --no-cache-dir -r requirements.txt
 # Copia o código da aplicação
 COPY . .
 
-# Cria diretórios para dados persistentes
-RUN mkdir -p /app/data /app/logs /app/staticfiles /app/media
-
 # Garante que entrypoint tenha permissão de execução
 COPY entrypoint.sh /entrypoint.sh
 RUN chmod +x /entrypoint.sh
 
-# Cria usuário não-root para segurança
-RUN adduser --disabled-password --gecos '' appuser \
-    && chown -R appuser:appuser /app \
-    && chown appuser:appuser /entrypoint.sh
-USER appuser
+# Cria diretórios para dados persistentes como root
+RUN mkdir -p /app/data /app/logs /app/staticfiles /app/media
+
+# Cria usuário não-root
+RUN adduser --disabled-password --gecos '' appuser
+
+# Por enquanto, rode como root para evitar problemas de permissão
+# USER appuser
 
 EXPOSE 8000
 

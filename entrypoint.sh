@@ -5,14 +5,14 @@ set -e
 
 echo "🚀 Starting Django application..."
 
-# Ensure data directory exists and has correct permissions
+# Ensure directories exist with correct permissions
 echo "📁 Setting up data directory..."
-mkdir -p /app/data /app/logs
-chmod 755 /app/data /app/logs
+mkdir -p /app/data /app/logs /app/staticfiles /app/media
+chmod 755 /app/data /app/logs /app/staticfiles /app/media
 
 # Check if database file exists, if not create it
 if [ ! -f "/app/data/db.sqlite3" ]; then
-    echo "📊 Creating new database..."
+    echo "📊 Creating new database file..."
     touch /app/data/db.sqlite3
     chmod 644 /app/data/db.sqlite3
 fi
