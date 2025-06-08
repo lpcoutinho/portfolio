@@ -18,6 +18,14 @@ ALLOWED_HOSTS = [
     '127.0.0.1',
 ]
 
+# CSRF Configuration
+CSRF_TRUSTED_ORIGINS = [
+    'https://lpcoutinho.top',
+    'https://www.lpcoutinho.top',
+    'http://lpcoutinho.top',
+    'http://www.lpcoutinho.top',
+]
+
 # Database - SQLite em diretório persistente
 DATABASES = {
     'default': {
@@ -36,6 +44,14 @@ MIDDLEWARE.insert(1, 'whitenoise.middleware.WhiteNoiseMiddleware')
 SECURE_BROWSER_XSS_FILTER = True
 SECURE_CONTENT_TYPE_NOSNIFF = True
 X_FRAME_OPTIONS = 'DENY'
+
+# Session and CSRF Security (adaptado para HTTP/HTTPS misto)
+SESSION_COOKIE_SECURE = False  # Manter False enquanto não tiver HTTPS completo
+CSRF_COOKIE_SECURE = False     # Manter False enquanto não tiver HTTPS completo
+SESSION_COOKIE_HTTPONLY = True
+CSRF_COOKIE_HTTPONLY = False   # Precisa ser False para funcionar com JavaScript
+SESSION_COOKIE_SAMESITE = 'Lax'
+CSRF_COOKIE_SAMESITE = 'Lax'
 
 # Static files for production
 STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
@@ -60,5 +76,17 @@ LOGGING = {
             'level': 'INFO',
             'propagate': False,
         },
+        'django.security': {
+            'handlers': ['console'],
+            'level': 'DEBUG',
+            'propagate': False,
+        },
     },
 }
+
+# Debug temporário para CSRF (remover depois)
+def csrf_failure_debug(request, reason=""):
+    from django.http import HttpResponse
+    return HttpResponse(f"CSRF failure: {reason}")
+
+CSRF_FAILURE_VIEW = csrf_failure_debug
