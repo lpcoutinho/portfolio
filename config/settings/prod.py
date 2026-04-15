@@ -16,6 +16,7 @@ ALLOWED_HOSTS = [
     'www.lpcoutinho.top',
     'localhost',
     '127.0.0.1',
+    'testserver'
 ]
 
 # CSRF Configuration

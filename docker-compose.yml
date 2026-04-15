@@ -14,8 +14,6 @@ services:
       - SECRET_KEY=${SECRET_KEY:-your-secret-key-here-change-me}
       - DEBUG=0
       - PYTHONUNBUFFERED=1
-    ports:
-      - "8000:8000"
     networks:
       - LaunchNet
     healthcheck:
@@ -45,7 +43,7 @@ services:
         - traefik.http.routers.lpcoutinho.service=lpcoutinho
         # Redirect www to non-www
         - traefik.http.middlewares.www-redirect.redirectregex.regex=^https://www\.(.*)
-        - traefik.http.middlewares.www-redirect.redirectregex.replacement=https://${1}
+        - traefik.http.middlewares.www-redirect.redirectregex.replacement=https://$${1}
         - traefik.http.middlewares.www-redirect.redirectregex.permanent=true
         - traefik.http.routers.lpcoutinho.middlewares=www-redirect,lpcoutinho-headers
         # Security headers
