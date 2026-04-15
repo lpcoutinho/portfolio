@@ -118,9 +118,15 @@
             Explore nossa biblioteca e descubra como transformar seus negócios com Inteligência Artificial.
         </p>
         {% if categorias %}
+        {% if categorias.0 and categorias.0.slug %}
         <a href="{% url 'biblioteca_ia:categoria' categorias.0.slug %}" class="inline-block bg-white text-purple-600 font-bold py-3 px-8 rounded-full hover:bg-purple-50 transition-colors shadow-lg">
             Explorar Categorias
         </a>
+        {% else %}
+        <a href="{% url 'biblioteca_ia:home' %}" class="inline-block bg-white text-purple-600 font-bold py-3 px-8 rounded-full hover:bg-purple-50 transition-colors shadow-lg">
+            Ver Todas as Categorias
+        </a>
+        {% endif %}
         {% else %}
         <a href="{% url 'core:home' %}" class="inline-block bg-white text-purple-600 font-bold py-3 px-8 rounded-full hover:bg-purple-50 transition-colors shadow-lg">
             Voltar ao Início
