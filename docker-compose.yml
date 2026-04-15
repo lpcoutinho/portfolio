@@ -15,7 +15,7 @@ services:
     ports:
       - "8000:8000"
     networks:
-      - MeteNet
+      - LaunchNet
     healthcheck:
       test: ["CMD", "curl", "-f", "http://localhost:8000/"]
       interval: 30s
@@ -47,9 +47,9 @@ services:
         - traefik.http.middlewares.www-redirect.redirectregex.permanent=true
 
 networks:
-  MeteNet:
+  LaunchNet:
     external: true
-    name: MeteNet
+    name: LaunchNet
 
 volumes:
   lpcoutinho-data:
