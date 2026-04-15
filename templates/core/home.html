@@ -2,7 +2,7 @@
 
 {% block title %}LP Coutinho - Desenvolvedor de Soluções{% endblock %}
 
-{% block description %}Desenvolvedor de Soluções especializado em Django e Python. Construção de aplicações escaláveis e ferramentas de automação{% endblock %}
+{% block description %}Desenvolvedor de Soluções especializado em Python, Django, IA, chatbots, APIs Meta, automação de atendimentos, streaming de dados e arquitetura de sistemas escaláveis.{% endblock %}
 
 {% block content %}
 <div class="max-w-7xl mx-auto py-6 sm:px-6 lg:px-8">
@@ -10,19 +10,19 @@
     <div class="px-4 py-6 sm:px-0">
         <div class="text-center">
             <h1 class="text-4xl md:text-6xl font-bold text-gray-900 mb-6">
-                Desenvolvedor de 
-                <span class="text-primary">Soluções</span>
+                Transformo Ideias em
+                <span class="text-primary">Soluções Reais</span>
             </h1>
             <p class="text-xl text-gray-600 mb-8 max-w-3xl mx-auto">
-                Construo aplicações web robustas e escaláveis usando, Python e tecnologias modernas. 
-                Especializado em automatizar processos e criar ferramentas que resolvem problemas reais.
+                Desenvolvedor de Soluções especializado em criar aplicações escaláveis, automatizar processos com IA e integrar sistemas complexos.
+                Chatbots, APIs Meta, automação de atendimentos, streaming de dados e arquitetura de alta performance.
             </p>
             <div class="flex flex-col sm:flex-row gap-4 justify-center">
-                <a href="{% url 'blog:blog_list' %}" class="bg-primary hover:bg-secondary text-white font-bold py-3 px-8 rounded-lg transition-colors">
-                    Build Log
+                <a href="/biblioteca-ia/" class="bg-primary hover:bg-secondary text-white font-bold py-3 px-8 rounded-lg transition-colors">
+                    Biblioteca de IA
                 </a>
                 <a href="/calculator/" class="border border-primary text-primary hover:bg-primary hover:text-white font-bold py-3 px-8 rounded-lg transition-colors">
-                    Ver Projetos
+                    Ver Outros Projetos
                 </a>
             </div>
         </div>
@@ -31,8 +31,21 @@
     <!-- Features Section -->
     <div class="mt-16">
         <h2 class="text-3xl font-bold text-center text-gray-900 mb-12">Soluções Desenvolvidas</h2>
-        <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-            <!-- Feature 1 -->
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+            <!-- Feature 1: Biblioteca IA -->
+            <a href="/biblioteca-ia/" class="text-decoration-none">
+                <div class="text-center p-6 bg-white rounded-lg shadow-sm border border-gray-200 hover:shadow-md transition-shadow">
+                    <div class="w-12 h-12 bg-primary bg-opacity-10 rounded-lg flex items-center justify-center mx-auto mb-4">
+                        <svg class="w-6 h-6 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0 5 5 0 00-7.072 0M12 20.354V21"></path>
+                        </svg>
+                    </div>
+                    <h3 class="text-xl font-semibold text-gray-900 mb-2">Biblioteca IA</h3>
+                    <p class="text-gray-600">120 prompts poderosos para criar imagens ultra realistas, vídeos e automatizar processos com Inteligência Artificial.</p>
+                </div>
+            </a>
+
+            <!-- Feature 2: Conteúdo Técnico -->
             <div class="text-center p-6 bg-white rounded-lg shadow-sm border border-gray-200">
                 <div class="w-12 h-12 bg-primary bg-opacity-10 rounded-lg flex items-center justify-center mx-auto mb-4">
                     <svg class="w-6 h-6 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -43,9 +56,9 @@
                 <p class="text-gray-600">Artigos sobre desenvolvimento web, arquitetura de software e boas práticas em Django.</p>
             </div>
 
-            <!-- Feature 2 -->
+            <!-- Feature 3: Calculadora -->
             <a href="/calculator/" class="text-decoration-none">
-                <div class="text-center p-6 bg-white rounded-lg shadow-sm border border-gray-200">
+                <div class="text-center p-6 bg-white rounded-lg shadow-sm border border-gray-200 hover:shadow-md transition-shadow">
                     <div class="w-12 h-12 bg-primary bg-opacity-10 rounded-lg flex items-center justify-center mx-auto mb-4">
                         <svg class="w-6 h-6 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 7h6m0 10v-3m-3 3h.01M9 17h.01M9 14h.01M12 14h.01M15 11h.01M12 11h.01M9 11h.01M7 21h10a2 2 0 002-2V5a2 2 0 00-2-2H7a2 2 0 00-2 2v14a2 2 0 002 2z"></path>
@@ -56,7 +69,7 @@
                 </div>
             </a>
 
-            <!-- Feature 3 -->
+            <!-- Feature 4: Automações -->
             <div class="text-center p-6 bg-white rounded-lg shadow-sm border border-gray-200">
                 <div class="w-12 h-12 bg-primary bg-opacity-10 rounded-lg flex items-center justify-center mx-auto mb-4">
                     <svg class="w-6 h-6 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -71,23 +84,174 @@
 
     <!-- Tech Stack Section -->
     <div class="mt-16">
-        <h2 class="text-3xl font-bold text-center text-gray-900 mb-12">Stack Tecnológico</h2>
-        <div class="grid grid-cols-2 md:grid-cols-4 gap-6">
-            <div class="text-center p-4 bg-white rounded-lg shadow-sm border border-gray-200">
-                <div class="text-2xl font-bold text-primary mb-2">Django</div>
-                <p class="text-sm text-gray-600">Framework Web</p>
+        <h2 class="text-3xl font-bold text-center text-gray-900 mb-4">Stack Tecnológico</h2>
+        <p class="text-center text-gray-600 mb-8">Soluções completas: Backend | IA | Dados | Automação | Streaming | Caches | Frontend | Cloud | Integrações</p>
+
+        <!-- Backend & Frameworks -->
+        <h3 class="text-xl font-semibold text-gray-800 mb-4">Backend & Frameworks</h3>
+        <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mb-8">
+            <div class="text-center p-3 bg-white rounded-lg shadow-sm border border-gray-200">
+                <div class="text-xl font-bold text-primary mb-1">Python</div>
+                <p class="text-xs text-gray-600">Backend Core</p>
             </div>
-            <div class="text-center p-4 bg-white rounded-lg shadow-sm border border-gray-200">
-                <div class="text-2xl font-bold text-primary mb-2">Python</div>
-                <p class="text-sm text-gray-600">Backend</p>
+            <div class="text-center p-3 bg-white rounded-lg shadow-sm border border-gray-200">
+                <div class="text-xl font-bold text-primary mb-1">Django</div>
+                <p class="text-xs text-gray-600">Framework Web</p>
             </div>
-            <div class="text-center p-4 bg-white rounded-lg shadow-sm border border-gray-200">
-                <div class="text-2xl font-bold text-primary mb-2">TailwindCSS</div>
-                <p class="text-sm text-gray-600">Styling</p>
+            <div class="text-center p-3 bg-white rounded-lg shadow-sm border border-gray-200">
+                <div class="text-xl font-bold text-primary mb-1">FastAPI</div>
+                <p class="text-xs text-gray-600">APIs de Alta Performance</p>
             </div>
-            <div class="text-center p-4 bg-white rounded-lg shadow-sm border border-gray-200">
-                <div class="text-2xl font-bold text-primary mb-2">SQLite</div>
-                <p class="text-sm text-gray-600">Database</p>
+            <div class="text-center p-3 bg-white rounded-lg shadow-sm border border-gray-200">
+                <div class="text-xl font-bold text-primary mb-1">SQL</div>
+                <p class="text-xs text-gray-600">PostgreSQL, MySQL</p>
+            </div>
+        </div>
+
+        <!-- IA & LLMs -->
+        <h3 class="text-xl font-semibold text-gray-800 mb-4">IA & LLMs</h3>
+        <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mb-8">
+            <div class="text-center p-3 bg-white rounded-lg shadow-sm border border-gray-200">
+                <div class="text-xl font-bold text-primary mb-1">OpenAI</div>
+                <p class="text-xs text-gray-600">GPT, Fine-tuning</p>
+            </div>
+            <div class="text-center p-3 bg-white rounded-lg shadow-sm border border-gray-200">
+                <div class="text-xl font-bold text-primary mb-1">Claude</div>
+                <p class="text-xs text-gray-600">Anthropic API</p>
+            </div>
+            <div class="text-center p-3 bg-white rounded-lg shadow-sm border border-gray-200">
+                <div class="text-xl font-bold text-primary mb-1">LangChain</div>
+                <p class="text-xs text-gray-600">Orquestração de IA</p>
+            </div>
+            <div class="text-center p-3 bg-white rounded-lg shadow-sm border border-gray-200">
+                <div class="text-xl font-bold text-primary mb-1">CrewAI</div>
+                <p class="text-xs text-gray-600">Agentes Multi-AG</p>
+            </div>
+        </div>
+
+        <!-- Automação & Chatbots -->
+        <h3 class="text-xl font-semibold text-gray-800 mb-4">Automação & Chatbots</h3>
+        <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mb-8">
+            <div class="text-center p-3 bg-white rounded-lg shadow-sm border border-gray-200">
+                <div class="text-xl font-bold text-primary mb-1">N8N</div>
+                <p class="text-xs text-gray-600">Automação de Fluxos</p>
+            </div>
+            <div class="text-center p-3 bg-white rounded-lg shadow-sm border border-gray-200">
+                <div class="text-xl font-bold text-primary mb-1">ChatWoot</div>
+                <p class="text-xs text-gray-600">Plataforma de Chatbot</p>
+            </div>
+            <div class="text-center p-3 bg-white rounded-lg shadow-sm border border-gray-200">
+                <div class="text-xl font-bold text-primary mb-1">TypeBot</div>
+                <p class="text-xs text-gray-600">Construtor de Chatbot</p>
+            </div>
+            <div class="text-center p-3 bg-white rounded-lg shadow-sm border border-gray-200">
+                <div class="text-xl font-bold text-primary mb-1">EvolutionAPI</div>
+                <p class="text-xs text-gray-600">API WhatsApp</p>
+            </div>
+        </div>
+
+        <!-- Dados & Streaming -->
+        <h3 class="text-xl font-semibold text-gray-800 mb-4">Dados & Streaming</h3>
+        <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mb-8">
+            <div class="text-center p-3 bg-white rounded-lg shadow-sm border border-gray-200">
+                <div class="text-xl font-bold text-primary mb-1">Pandas</div>
+                <p class="text-xs text-gray-600">Análise de Dados</p>
+            </div>
+            <div class="text-center p-3 bg-white rounded-lg shadow-sm border border-gray-200">
+                <div class="text-xl font-bold text-primary mb-1">Streamlit</div>
+                <p class="text-xs text-gray-600">Dashboards</p>
+            </div>
+            <div class="text-center p-3 bg-white rounded-lg shadow-sm border border-gray-200">
+                <div class="text-xl font-bold text-primary mb-1">Webscraping</div>
+                <p class="text-xs text-gray-600">BeautifulSoup, Scrapy</p>
+            </div>
+            <div class="text-center p-3 bg-white rounded-lg shadow-sm border border-gray-200">
+                <div class="text-xl font-bold text-primary mb-1">Kafka</div>
+                <p class="text-xs text-gray-600">Streaming de Dados</p>
+            </div>
+        </div>
+
+        <!-- Caches & Filas -->
+        <h3 class="text-xl font-semibold text-gray-800 mb-4">Caches & Filas</h3>
+        <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mb-8">
+            <div class="text-center p-3 bg-white rounded-lg shadow-sm border border-gray-200">
+                <div class="text-xl font-bold text-primary mb-1">Redis</div>
+                <p class="text-xs text-gray-600">Cache & Filas</p>
+            </div>
+            <div class="text-center p-3 bg-white rounded-lg shadow-sm border border-gray-200">
+                <div class="text-xl font-bold text-primary mb-1">Valkey</div>
+                <p class="text-xs text-gray-600">Cache Alternativo</p>
+            </div>
+            <div class="text-center p-3 bg-white rounded-lg shadow-sm border border-gray-200">
+                <div class="text-xl font-bold text-primary mb-1">RabbitMQ</div>
+                <p class="text-xs text-gray-600">Message Broker</p>
+            </div>
+            <div class="text-center p-3 bg-white rounded-lg shadow-sm border border-gray-200">
+                <div class="text-xl font-bold text-primary mb-1">Celery</div>
+                <p class="text-xs text-gray-600">Tasks Assíncronos</p>
+            </div>
+        </div>
+
+        <!-- Frontend -->
+        <h3 class="text-xl font-semibold text-gray-800 mb-4">Frontend</h3>
+        <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mb-8">
+            <div class="text-center p-3 bg-white rounded-lg shadow-sm border border-gray-200">
+                <div class="text-xl font-bold text-primary mb-1">React</div>
+                <p class="text-xs text-gray-600">Frontend Framework</p>
+            </div>
+            <div class="text-center p-3 bg-white rounded-lg shadow-sm border border-gray-200">
+                <div class="text-xl font-bold text-primary mb-1">React Native</div>
+                <p class="text-xs text-gray-600">Mobile Apps</p>
+            </div>
+            <div class="text-center p-3 bg-white rounded-lg shadow-sm border border-gray-200">
+                <div class="text-xl font-bold text-primary mb-1">TailwindCSS</div>
+                <p class="text-xs text-gray-600">CSS Framework</p>
+            </div>
+            <div class="text-center p-3 bg-white rounded-lg shadow-sm border border-gray-200">
+                <div class="text-xl font-bold text-primary mb-1">JavaScript</div>
+                <p class="text-xs text-gray-600">Core Frontend</p>
+            </div>
+        </div>
+
+        <!-- APIs & Integrações -->
+        <h3 class="text-xl font-semibold text-gray-800 mb-4">APIs & Integrações</h3>
+        <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mb-8">
+            <div class="text-center p-3 bg-white rounded-lg shadow-sm border border-gray-200">
+                <div class="text-xl font-bold text-primary mb-1">Plaid</div>
+                <p class="text-xs text-gray-600">Integração Financeira</p>
+            </div>
+            <div class="text-center p-3 bg-white rounded-lg shadow-sm border border-gray-200">
+                <div class="text-xl font-bold text-primary mb-1">Meta API</div>
+                <p class="text-xs text-gray-600">Facebook, Instagram, WhatsApp</p>
+            </div>
+            <div class="text-center p-3 bg-white rounded-lg shadow-sm border border-gray-200">
+                <div class="text-xl font-bold text-primary mb-1">Experian</div>
+                <p class="text-xs text-gray-600">Análise de Crédito</p>
+            </div>
+            <div class="text-center p-3 bg-white rounded-lg shadow-sm border border-gray-200">
+                <div class="text-xl font-bold text-primary mb-1">OpenAI API</div>
+                <p class="text-xs text-gray-600">GPT & Assistentes</p>
+            </div>
+        </div>
+
+        <!-- Cloud & DevOps -->
+        <h3 class="text-xl font-semibold text-gray-800 mb-4">Cloud & DevOps</h3>
+        <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+            <div class="text-center p-3 bg-white rounded-lg shadow-sm border border-gray-200">
+                <div class="text-xl font-bold text-primary mb-1">AWS</div>
+                <p class="text-xs text-gray-600">Amazon Web Services</p>
+            </div>
+            <div class="text-center p-3 bg-white rounded-lg shadow-sm border border-gray-200">
+                <div class="text-xl font-bold text-primary mb-1">GCP</div>
+                <p class="text-xs text-gray-600">Google Cloud Platform</p>
+            </div>
+            <div class="text-center p-3 bg-white rounded-lg shadow-sm border border-gray-200">
+                <div class="text-xl font-bold text-primary mb-1">Azure</div>
+                <p class="text-xs text-gray-600">Microsoft Azure</p>
+            </div>
+            <div class="text-center p-3 bg-white rounded-lg shadow-sm border border-gray-200">
+                <div class="text-xl font-bold text-primary mb-1">Docker</div>
+                <p class="text-xs text-gray-600">Containers & CI/CD</p>
             </div>
         </div>
     </div>
