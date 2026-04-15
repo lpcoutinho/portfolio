@@ -4,7 +4,7 @@ from django.db import models
 class Categoria(models.Model):
     """Categorias para organizar os prompts."""
     nome = models.CharField(max_length=100)
-    slug = models.SlugField(unique=True)
+    slug = models.SlugField(unique=True, blank=True)
     icone = models.CharField(max_length=50, help_text="Emoji ou nome do ícone")
     descricao = models.TextField(blank=True)
     ordem = models.PositiveIntegerField(default=0, help_text="Ordem de exibição")
@@ -23,6 +23,9 @@ class Categoria(models.Model):
         if not self.slug:
             from django.utils.text import slugify
             self.slug = slugify(self.nome)
+        # Garante que o slug nunca seja vazio
+        if not self.slug:
+            self.slug = f"categoria-{self.pk or 'temp'}"
         super().save(*args, **kwargs)
 
 

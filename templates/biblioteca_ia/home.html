@@ -83,6 +83,7 @@
 
         <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
             {% for categoria in categorias %}
+            {% if categoria.slug %}
             <a href="{% url 'biblioteca_ia:categoria' categoria.slug %}"
                class="card-hover bg-white rounded-xl p-6 shadow-md transition-all duration-300 border-2 border-transparent hover:border-purple-300">
                 <div class="text-4xl mb-4">{{ categoria.icone }}</div>
@@ -92,6 +93,14 @@
                     {{ categoria.total_prompts }} prompt{{ categoria.total_prompts|pluralize }}
                 </span>
             </a>
+            {% else %}
+            <div class="card-hover bg-white rounded-xl p-6 shadow-md border-2 border-red-300 opacity-50">
+                <div class="text-4xl mb-4">⚠️</div>
+                <h3 class="text-xl font-bold text-gray-900 mb-2">{{ categoria.nome }}</h3>
+                <p class="text-red-600 text-sm mb-2">Slug não definido</p>
+                <p class="text-gray-600 text-sm mb-4">{{ categoria.descricao }}</p>
+            </div>
+            {% endif %}
             {% empty %}
             <div class="col-span-full text-center text-gray-500 py-12">
                 <p>Nenhuma categoria encontrada. Adicione categorias pelo painel admin.</p>
@@ -108,9 +117,15 @@
         <p class="text-xl text-purple-100 mb-8">
             Explore nossa biblioteca e descubra como transformar seus negócios com Inteligência Artificial.
         </p>
+        {% if categorias %}
         <a href="{% url 'biblioteca_ia:categoria' categorias.0.slug %}" class="inline-block bg-white text-purple-600 font-bold py-3 px-8 rounded-full hover:bg-purple-50 transition-colors shadow-lg">
             Explorar Categorias
         </a>
+        {% else %}
+        <a href="{% url 'core:home' %}" class="inline-block bg-white text-purple-600 font-bold py-3 px-8 rounded-full hover:bg-purple-50 transition-colors shadow-lg">
+            Voltar ao Início
+        </a>
+        {% endif %}
     </div>
 </section>
 {% endblock %}
