@@ -29,16 +29,16 @@ def categoria_detalhe(request, slug):
     galeria_imagens = []
     if categoria.nome == 'Imagens Ultra Realistas':
         galeria_imagens = [
-            {'arquivo': 'antes-e-depois.png', 'titulo': 'Foto de Antes e Depois'},
-            {'arquivo': 'avatar-ia-feminio.png', 'titulo': 'Avatar de IA Feminino'},
-            {'arquivo': 'com-produto.png', 'titulo': 'Com produto'},
-            {'arquivo': 'com-roupa.png', 'titulo': 'Com roupa'},
-            {'arquivo': 'empresas.png', 'titulo': 'Para Empresas'},
-            {'arquivo': 'iphone-15-pro-max.png', 'titulo': 'Foto Estilo iPhone'},
-            {'arquivo': 'lifestyle.png', 'titulo': 'Lifestyle Aspiracional'},
-            {'arquivo': 'mockup.png', 'titulo': 'Mockup de Produto Digital'},
-            {'arquivo': 'para-anuncios.png', 'titulo': 'Imagem para Anúncio Meta'},
-            {'arquivo': 'para-vitrine.png', 'titulo': 'Foto de Produto Premium'},
+            {'arquivo': 'antes-e-depois.webp', 'titulo': 'Foto de Antes e Depois'},
+            {'arquivo': 'avatar-ia-feminio.webp', 'titulo': 'Avatar de IA Feminino'},
+            {'arquivo': 'com-produto.webp', 'titulo': 'Com produto'},
+            {'arquivo': 'com-roupa.webp', 'titulo': 'Com roupa'},
+            {'arquivo': 'empresas.webp', 'titulo': 'Para Empresas'},
+            {'arquivo': 'iphone-15-pro-max.webp', 'titulo': 'Foto Estilo iPhone'},
+            {'arquivo': 'lifestyle.webp', 'titulo': 'Lifestyle Aspiracional'},
+            {'arquivo': 'mockup.webp', 'titulo': 'Mockup de Produto Digital'},
+            {'arquivo': 'para-anuncios.webp', 'titulo': 'Imagem para Anúncio Meta'},
+            {'arquivo': 'para-vitrine.webp', 'titulo': 'Foto de Produto Premium'},
         ]
 
     context = {
