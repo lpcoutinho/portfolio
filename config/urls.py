@@ -22,6 +22,7 @@ from django.conf.urls.static import static
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', include('apps.core.urls')),
+    path('biblioteca-ia/', include('apps.biblioteca_ia.urls')),
     path('blog/', include('apps.blog.urls')),
     path('calculator/', include('apps.calculator.urls')),
     path('n8n/', include('apps.n8n_sharing.urls')),

@@ -1,0 +1,116 @@
+{% extends 'base.html' %}
+
+{% block title %}Biblioteca IA - {{ total_prompts }} Prompts Poderosos{% endblock %}
+{% block description %}Biblioteca completa de {{ total_prompts }} prompts para Inteligência Artificial. Imagens ultra realistas, vídeos, TikTok Shop e muito mais.{% endblock %}
+{% block og_title %}Biblioteca IA - {{ total_prompts }} Prompts Poderosos{% endblock %}
+{% block og_description %}Biblioteca completa de {{ total_prompts }} prompts para Inteligência Artificial. Imagens ultra realistas, vídeos, TikTok Shop e muito mais.{% endblock %}
+
+{% block extra_head %}
+<style>
+    .gradient-bg {
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    }
+    .card-hover:hover {
+        transform: translateY(-4px);
+        box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+    }
+</style>
+{% endblock %}
+
+{% block content %}
+<!-- Hero Section -->
+<section class="gradient-bg text-white py-20">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+        <h1 class="text-4xl md:text-6xl font-bold mb-6">{{ total_prompts }} Prompts Poderosos para Empreender com IA</h1>
+        <p class="text-xl md:text-2xl text-purple-100 mb-8">
+            Imagens Ultra Realistas • Vídeos com IA • TikTok Shop • Negócios Digitais • Automação • Renda Digital
+        </p>
+        <p class="text-lg text-purple-200 max-w-3xl mx-auto">
+            Cada prompt foi desenvolvido e testado para gerar resultados reais: mais vendas, mais seguidores, mais automação e mais renda.
+        </p>
+    </div>
+</section>
+
+<!-- Como Funciona Section -->
+<section class="py-16 bg-white">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <h2 class="text-3xl font-bold text-center text-gray-900 mb-12">Como Usar os Prompts</h2>
+        <div class="grid grid-cols-1 md:grid-cols-5 gap-6">
+            <div class="text-center">
+                <div class="w-16 h-16 bg-purple-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                    <span class="text-2xl font-bold text-purple-600">01</span>
+                </div>
+                <h3 class="font-semibold text-gray-900 mb-2">Encontrar</h3>
+                <p class="text-gray-600 text-sm">Escolha o prompt ideal</p>
+            </div>
+            <div class="text-center">
+                <div class="w-16 h-16 bg-purple-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                    <span class="text-2xl font-bold text-purple-600">02</span>
+                </div>
+                <h3 class="font-semibold text-gray-900 mb-2">Copiar</h3>
+                <p class="text-gray-600 text-sm">Copie o texto completo</p>
+            </div>
+            <div class="text-center">
+                <div class="w-16 h-16 bg-purple-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                    <span class="text-2xl font-bold text-purple-600">03</span>
+                </div>
+                <h3 class="font-semibold text-gray-900 mb-2">Adaptar</h3>
+                <p class="text-gray-600 text-sm">Personalize se necessário</p>
+            </div>
+            <div class="text-center">
+                <div class="w-16 h-16 bg-purple-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                    <span class="text-2xl font-bold text-purple-600">04</span>
+                </div>
+                <h3 class="font-semibold text-gray-900 mb-2">Usar</h3>
+                <p class="text-gray-600 text-sm">Cole na ferramenta de IA</p>
+            </div>
+            <div class="text-center">
+                <div class="w-16 h-16 bg-purple-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                    <span class="text-2xl font-bold text-purple-600">05</span>
+                </div>
+                <h3 class="font-semibold text-gray-900 mb-2">Aplicar</h3>
+                <p class="text-gray-600 text-sm">Use no seu negócio</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Categorias Grid -->
+<section class="py-16 bg-gray-50">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <h2 class="text-3xl font-bold text-center text-gray-900 mb-4">Categorias</h2>
+        <p class="text-center text-gray-600 mb-12">Escolha uma categoria para ver os prompts disponíveis</p>
+
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+            {% for categoria in categorias %}
+            <a href="{% url 'biblioteca_ia:categoria' categoria.slug %}"
+               class="card-hover bg-white rounded-xl p-6 shadow-md transition-all duration-300 border-2 border-transparent hover:border-purple-300">
+                <div class="text-4xl mb-4">{{ categoria.icone }}</div>
+                <h3 class="text-xl font-bold text-gray-900 mb-2">{{ categoria.nome }}</h3>
+                <p class="text-gray-600 text-sm mb-4">{{ categoria.descricao }}</p>
+                <span class="inline-block bg-purple-100 text-purple-700 text-sm font-semibold px-3 py-1 rounded-full">
+                    {{ categoria.total_prompts }} prompt{{ categoria.total_prompts|pluralize }}
+                </span>
+            </a>
+            {% empty %}
+            <div class="col-span-full text-center text-gray-500 py-12">
+                <p>Nenhuma categoria encontrada. Adicione categorias pelo painel admin.</p>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</section>
+
+<!-- CTA Section -->
+<section class="py-16 gradient-bg text-white">
+    <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+        <h2 class="text-3xl font-bold mb-4">Pronto para começar?</h2>
+        <p class="text-xl text-purple-100 mb-8">
+            Explore nossa biblioteca e descubra como transformar seus negócios com Inteligência Artificial.
+        </p>
+        <a href="{% url 'biblioteca_ia:categoria' categorias.0.slug %}" class="inline-block bg-white text-purple-600 font-bold py-3 px-8 rounded-full hover:bg-purple-50 transition-colors shadow-lg">
+            Explorar Categorias
+        </a>
+    </div>
+</section>
+{% endblock %}
