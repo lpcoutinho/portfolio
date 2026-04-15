@@ -45,13 +45,18 @@ SECURE_BROWSER_XSS_FILTER = True
 SECURE_CONTENT_TYPE_NOSNIFF = True
 X_FRAME_OPTIONS = 'DENY'
 
-# Session and CSRF Security (adaptado para HTTP/HTTPS misto)
-SESSION_COOKIE_SECURE = False  # Manter False enquanto não tiver HTTPS completo
-CSRF_COOKIE_SECURE = False     # Manter False enquanto não tiver HTTPS completo
+# Session and CSRF Security (HTTPS habilitado via Let's Encrypt)
+SESSION_COOKIE_SECURE = True  # Habilitado para HTTPS
+CSRF_COOKIE_SECURE = True     # Habilitado para HTTPS
 SESSION_COOKIE_HTTPONLY = True
-CSRF_COOKIE_HTTPONLY = False   # Precisa ser False para funcionar com JavaScript
-SESSION_COOKIE_SAMESITE = 'Lax'
-CSRF_COOKIE_SAMESITE = 'Lax'
+CSRF_COOKIE_HTTPONLY = True   # Habilitado para segurança
+SESSION_COOKIE_SAMESITE = 'Strict'
+CSRF_COOKIE_SAMESITE = 'Strict'
+
+# HSTS Settings
+SECURE_HSTS_SECONDS = 31536000
+SECURE_HSTS_INCLUDE_SUBDOMAINS = True
+SECURE_HSTS_PRELOAD = True
 
 # Static files for production
 STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
