@@ -41,6 +41,11 @@ DATABASES = {
 # WhiteNoise para servir arquivos estáticos
 MIDDLEWARE.insert(1, 'whitenoise.middleware.WhiteNoiseMiddleware')
 
+# Configurações de cache do WhiteNoise
+WHITENOISE_USE_FINDERS = True
+WHITENOISE_IMMUTABLE_FILE_TEST = r'^\w+\.[\w-]+\.[0-9a-f]{8}\.[0-9a-f]+$'
+WHITENOISE_MAX_AGE = 31536000  # 1 ano
+
 # Security settings (relaxadas para HTTP inicial)
 SECURE_BROWSER_XSS_FILTER = True
 SECURE_CONTENT_TYPE_NOSNIFF = True
